@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>package-minimap</title>
+        <link rel="stylesheet" href="leaflet.css" />
+        <style>
+            body {
+                margin: 0px;
+                color: #fff;
+            }
+            #map {
+                height: 300px;
+                width: 300px;
+                position: fixed !important;
+                border-radius: 50%;
+                border: 2px solid #c1c1c1;
+                right: 20px;
+                bottom: 20px;
+            }
+            .leaflet-container {
+                background: #152f3a;
+            }
+            .leaflet-control-attribution {
+                background: transparent;
+            }
+            .leaflet-control-attribution a {
+                color: transparent;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script src="leaflet.js"></script>
+        <script src="leaflet.label.js"></script>
+        <script>
+            let map = L.map('map').setView([-10, 30], 5);
+            L.tileLayer('tiles/{z}/{x}/{y}.jpg', {
+                attribution: '',
+                maxZoom: 6,
+                continuousWorld: true,
+		        noWrap: false
+            }).addTo(map);
+
+            // disable map controls
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.boxZoom.disable();
+            map.keyboard.disable();
+            if (map.tap) map.tap.disable();
+            document.getElementById('map').style.cursor='default';
+
+            // Updates the Map
+            const interval = setInterval(() => {
+                jcmp.CallEvent('getLocalPlayerPos', 'get that shit');
+            }, 100);
+
+            jcmp.AddEvent('setLocalPlayerPos', (pos) => {
+                pos = JSON.parse(pos);
+                map.panTo(new L.LatLng(pos[0], pos[1]));
+            });
+        </script>
+    </body>
+</html>
