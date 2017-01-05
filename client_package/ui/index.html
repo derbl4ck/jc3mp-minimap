@@ -7,6 +7,7 @@
                 margin: 0px;
                 color: #fff;
             }
+            
             #map {
                 height: 300px;
                 width: 300px;
@@ -14,22 +15,27 @@
                 border-radius: 50%;
                 border: 2px solid #c1c1c1;
             }
+            
             .pos-upperleft {
                 left: 20px;
                 top: 20px;
             }
+            
             .pos-upperright {
                 right: 20px;
                 top: 20px;
             }
+            
             .pos-bottomleft {
                 left: 20px;
                 bottom: 20px;
             }
+            
             .pos-bottomright {
                 right: 20px;
                 bottom: 20px;
             }
+            
             .arrow {
                 background-image: url('images/arrow.png');
                 width: 40px;
@@ -40,17 +46,21 @@
                 top: 43%;
                 position: relative;
             }
+            
             .leaflet-container {
                 background: #152f3a;
             }
+            
             .leaflet-control-attribution {
                 background: transparent;
             }
+            
             .leaflet-control-attribution a {
                 color: transparent;
             }
         </style>
     </head>
+
     <body>
         <div id="map" class="pos-bottomright">
             <div class="arrow"></div>
@@ -60,11 +70,11 @@
         <script src="leaflet.label.js"></script>
         <script>
             let map = L.map('map').setView([-10, 30], 4);
-            L.tileLayer('tiles/{z}/{x}/{y}.png', {
+            L.tileLayer('tiles/{z}/{y}/{x}.png', {
                 attribution: '',
                 maxZoom: 4,
                 continuousWorld: true,
-		        noWrap: false
+                noWrap: false
             }).addTo(map);
 
             // disable map controls
@@ -75,7 +85,7 @@
             map.boxZoom.disable();
             map.keyboard.disable();
             if (map.tap) map.tap.disable();
-            document.getElementById('map').style.cursor='default';
+            document.getElementById('map').style.cursor = 'default';
             $(`.leaflet-control-container`).remove();
 
             // Updates the Map
@@ -91,19 +101,23 @@
             });
 
             jcmp.AddEvent('minimap_setLocalPlayerRot', (rot) => {
-                $('#map').css({'transform' : 'rotate('+ rot +'deg)'});
+                $('#map').css({
+                    'transform': 'rotate(' + rot + 'deg)'
+                });
             });
 
             jcmp.AddEvent('minimap_clear', (data) => {
-                
+
             });
 
             jcmp.AddEvent('minimap_addText', (data) => {
-                
+
             });
 
             jcmp.AddEvent('minimap_addCircle', (data) => {
-                L.circle([data['x'], data['y']], {radius: data['radius']}).addTo(map);
+                L.circle([data['x'], data['y']], {
+                    radius: data['radius']
+                }).addTo(map);
             });
 
             jcmp.AddEvent('minimap_addCustomCSS', (css) => {
