@@ -11,18 +11,21 @@ const ui = new WebUIWindow('minimap', 'package://jc3mp-minimap/ui/index.html', n
 ui.autoResize = true;
 
 jcmp.ui.AddEvent('minimap_getLocalPlayerPos', msg => {
-  // TODO need to adjust this shit
-
-  //const posi = [(-(Math.floor(localPlayer.GetRenderTransform(0.0).position.z)/90)), Math.floor(localPlayer.GetRenderTransform(0.0).position.x)/116];
-  //const posi = [(-(Math.floor(localPlayer.GetRenderTransform(0.0).position.z + 10 ) / 1000)), Math.floor(localPlayer.GetRenderTransform(0.0).position.x -  65) / 1000];
-
   const map_w = 32768 * 2;
   const tiles_x = 16;
 
   const x = jcmp.localPlayer.GetRenderTransform(0.0).position.x;
   const y = jcmp.localPlayer.GetRenderTransform(0.0).position.z;
 
-  const posi = [(y * map_w / tiles_x - map_w / 2), (x * map_w / tiles_x - map_w / 2)];
+  /**
+   *  TODO need to adjust this shit 
+   */ 
+
+  //const posi = [(-(Math.floor(y)/90)), Math.floor(x)/116];
+  //const posi = [(-(Math.floor(y + 10 ) / 1000)), Math.floor(x -  65) / 1000];
+  //const posi = [(y * map_w / tiles_x - map_w / 2), (x * map_w / tiles_x - map_w / 2)];
+
+  const posi = [(-(y / 100)), (x / 100) + 4]; // This seems to work atm (Tested at the Statue)
 
   posi[2] = y; // NOTE DEVstuff
   posi[3] = x; // NOTE DEVstuff

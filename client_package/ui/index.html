@@ -1,74 +1,76 @@
 <html>
-    <head>
-        <title>JC3:MP Minimap</title>
-        <link rel="stylesheet" href="leaflet.css" />
-        <style>
-            body {
-                margin: 0px;
-                color: #fff;
-            }
-            
-            #map {
-                height: 300px;
-                width: 300px;
-                position: fixed !important;
-                border-radius: 50%;
-                border: 2px solid #c1c1c1;
-            }
-            
-            .pos-upperleft {
-                left: 20px;
-                top: 20px;
-            }
-            
-            .pos-upperright {
-                right: 20px;
-                top: 20px;
-            }
-            
-            .pos-bottomleft {
-                left: 20px;
-                bottom: 20px;
-            }
-            
-            .pos-bottomright {
-                right: 20px;
-                bottom: 20px;
-            }
-            
-            .arrow {
-                background-image: url('images/arrow.png');
-                width: 40px;
-                height: 40px;
-                z-index: 1;
-                background-size: cover;
-                left: 43%;
-                top: 43%;
-                position: relative;
-            }
-            
-            .leaflet-container {
-                background: #152f3a;
-            }
-            
-            .leaflet-control-attribution {
-                background: transparent;
-            }
-            
-            .leaflet-control-attribution a {
-                color: transparent;
-            }
-        </style>
-    </head>
 
-    <body>
-        <div id="map" class="pos-bottomright">
-            <div class="arrow"></div>
-        </div>
-        <script src="jquery.js"></script>
-        <script src="leaflet.js"></script>
-        <script src="leaflet.label.js"></script>
-        <script>
+<head>
+	<title>JC3:MP Minimap</title>
+	<link rel="stylesheet" href="leaflet.css" />
+	<style>
+		body {
+			margin: 0px;
+			color: #fff;
+		}
+		
+		#map {
+			height: 300px;
+			width: 300px;
+			position: fixed !important;
+			border-radius: 50%;
+			border: 2px solid #c1c1c1;
+		}
+		
+		.pos-upperleft {
+			left: 20px;
+			top: 20px;
+		}
+		
+		.pos-upperright {
+			right: 20px;
+			top: 20px;
+		}
+		
+		.pos-bottomleft {
+			left: 20px;
+			bottom: 20px;
+		}
+		
+		.pos-bottomright {
+			right: 20px;
+			bottom: 20px;
+		}
+		
+		.arrow {
+			background-image: url('images/arrow.png');
+			width: 40px;
+			height: 40px;
+			z-index: 1;
+			background-size: cover;
+			left: 43%;
+			top: 43%;
+			position: relative;
+		}
+		
+		.leaflet-container {
+			background: #152f3a;
+		}
+		
+		.leaflet-control-attribution {
+			background: transparent;
+		}
+		
+		.leaflet-control-attribution a {
+			color: transparent;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="map" class="pos-bottomright">
+		<div class="arrow"></div>
+	</div>
+	<script src="jquery.js"></script>
+	<script src="leaflet.js"></script>
+	<script src="leaflet.label.js"></script>
+	<script>
+            let rotationActive = false;
             let map = L.map('map').setView([-10, 30], 4);
             L.tileLayer('tiles/{z}/{y}/{x}.png', {
                 attribution: '',
@@ -101,9 +103,11 @@
             });
 
             jcmp.AddEvent('minimap_setLocalPlayerRot', (rot) => {
-                $('#map').css({
-                    'transform': 'rotate(' + rot + 'deg)'
-                });
+                if(rotationActive) {
+                    $('.arrow').css({
+                        'transform': 'rotate(' + rot + 'deg)'
+                    });
+                }
             });
 
             jcmp.AddEvent('minimap_clear', (data) => {
@@ -131,5 +135,6 @@
 
             jcmp.CallEvent('minimap_ready', 'But maybe Lukas is way nicer than Dennis');
         </script>
-    </body>
+</body>
+
 </html>

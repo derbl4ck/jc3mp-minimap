@@ -38,7 +38,7 @@ jcmp.events.AddRemoteCallable('minimap_addDrawcall', (pkg, identifier, type, dat
         pkg: pkg,
         identifier: identifier,
         type: type,
-        data
+        data: data
       };
 
       jcmp.events.CallRemote('minimap_draw', JSON.stringify(drawcalls));
