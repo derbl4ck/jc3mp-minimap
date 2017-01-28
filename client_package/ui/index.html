@@ -71,7 +71,10 @@
 	<script src="leaflet.label.js"></script>
 	<script>
             let rotationActive = false;
-            let map = L.map('map').setView([-10, 30], 4);
+            let map = L.map('map', {
+				crs: L.CRS.Simple
+			}).setView([0, 0], 4);
+
             L.tileLayer('tiles/{z}/{y}/{x}.png', {
                 attribution: '',
                 maxZoom: 4,
@@ -90,22 +93,32 @@
             document.getElementById('map').style.cursor = 'default';
             $(`.leaflet-control-container`).remove();
 
+			function pan(lat, lng) {
+				let s = 0.78111749;
+				lat = (lat * s) - 128;
+				lng = (lng * s) + 128;
+				map.panTo([lat, lng], {
+					easeLinearity: 1,
+					duration: 0.1
+				});
+			};
+
             // Updates the Map
             const interval = setInterval(() => {
-                jcmp.CallEvent('minimap_getLocalPlayerPos', 'get that shit');
-                jcmp.CallEvent('minimap_getLocalPlayerRot', 'get that shit');
+                jcmp.CallEvent('minimap_getLocalPlayerPos');
+                jcmp.CallEvent('minimap_getLocalPlayerRot');
             }, 50);
 
             jcmp.AddEvent('minimap_setLocalPlayerPos', (pos) => {
                 pos = JSON.parse(pos);
-                console.log(pos);
-                map.panTo(new L.LatLng(pos[0], pos[1]));
+                pan(pos[0], pos[1]);
             });
 
             jcmp.AddEvent('minimap_setLocalPlayerRot', (rot) => {
                 if(rotationActive) {
                     $('.arrow').css({
-                        'transform': 'rotate(' + rot + 'deg)'
+						'transition': '50ms ease all',
+                        'transform': 'rotateZ(' + rot + 'deg)'
                     });
                 }
             });
@@ -118,6 +131,10 @@
 
             });
 
+			jcmp.AddEvent('minimap_setVisible', (toggle) => {
+				(toggle) ? $('#map').fadeIn('slow') : $('#map').hide();
+            });
+
             jcmp.AddEvent('minimap_addCircle', (data) => {
                 L.circle([data['x'], data['y']], {
                     radius: data['radius']
@@ -128,12 +145,20 @@
                 css = JSON.parse(css);
                 $('head').append(`<style id="${css['identifier']}" type="text/css">${css['data']['css']}</style>`);
             });
+			
+			jcmp.AddEvent('minimap_changeStyle', (data) => {
+                style = JSON.parse(data);
+				if (data.type == 'transparent') {
+					$('#internalCustomStyle').remove();
+					$('head').append(`<style id="internalCustomStyle" type="text/css">.leaflet-container { background: rgba(0, 0, 0, 0); } #map { border: 0px solid rgba(0, 0, 0, 0); } </style>`);
+				}
+            });
 
             jcmp.AddEvent('minimap_removeCSS', (identifier) => {
                 $(`#${identifier}`).remove();
             });
 
-            jcmp.CallEvent('minimap_ready', 'But maybe Lukas is way nicer than Dennis');
+            jcmp.CallEvent('minimap_ready');
         </script>
 </body>
 

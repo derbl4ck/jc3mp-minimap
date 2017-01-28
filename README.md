@@ -10,9 +10,7 @@ Features a Server package which gives each Client a Minimap, displayed on his UI
 
 ## TODO
 
-  - Player Icons
   - Display North South West East
-  - Different Border designs
 
 ## License
 

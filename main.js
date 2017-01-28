@@ -9,8 +9,7 @@
 
 let drawcalls = [];
 
-jcmp.events.AddRemoteCallable('minimap_ready', (msg) => {
-  console.log(msg);
+jcmp.events.AddRemoteCallable('minimap_ready', () => {
   jcmp.events.CallRemote('minimap_draw', JSON.stringify(drawcalls));
 });
 
