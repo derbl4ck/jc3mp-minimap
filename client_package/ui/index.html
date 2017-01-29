@@ -70,7 +70,12 @@
 	<script src="leaflet.js"></script>
 	<script src="leaflet.label.js"></script>
 	<script>
-            let rotationActive = false;
+            /**
+			* Some super cool advanced options!!!
+			*/
+			let rotationActive = false;
+			let transparentMode = false;
+
             let map = L.map('map', {
 				crs: L.CRS.Simple
 			}).setView([0, 0], 4);
@@ -102,6 +107,11 @@
 					duration: 0.1
 				});
 			};
+
+			if (transparentMode) {
+				$('#internalCustomStyle').remove();
+				$('head').append(`<style id="internalCustomStyle" type="text/css">.leaflet-container { background: rgba(0, 0, 0, 0); } #map { border: 0px solid rgba(0, 0, 0, 0); } </style>`);
+			}
 
             // Updates the Map
             const interval = setInterval(() => {
