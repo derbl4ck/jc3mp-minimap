@@ -2,6 +2,7 @@
  * @overview package-minimap Main
  * @author Lukas 'derbl4ck' Berwanger
  * @contributor Sebastian 'Sebihunter' Mühlbauer
+ * @contributor Darwood37
  * @copyright (c) derbl4ck
  * @license
  */
@@ -24,11 +25,11 @@ jcmp.ui.AddEvent('minimap_getLocalPlayerRot', () => {
   let z = jcmp.localPlayer.rotation.z;
   let y = jcmp.localPlayer.rotation.y;
   //Due to a missing polar coordinate it's not possible to solve it via acos/asin
-  rotation = Math.abs(y)*180/Math.PI;
-  if(z == 0){
-    if(y < 0)rotation = 90 - rotation + 270;
-  }else{
-    rotation = (y > 0)? 90 - rotation+90 : rotation + 180;
+  rotation = Math.abs(y) * 180 / Math.PI;
+  if (z == 0) {
+    if (y < 0) rotation = 90 - rotation + 270;
+  } else {
+    rotation = (y > 0) ? 90 - rotation + 90 : rotation + 180;
   }
   rotation = 360 - rotation;
   jcmp.ui.CallEvent('minimap_setLocalPlayerRot', rotation);
@@ -39,10 +40,17 @@ jcmp.ui.AddEvent('minimap_ready', () => {
 });
 
 jcmp.events.AddRemoteCallable('minimap_draw', drawcalls => {
-  drawcalls = JSON.parse(drawcalls);
+  let tdrawcalls;
+
+  if (drawcalls == 'undefined' || drawcalls == null) {
+    tdrawcalls = {};
+  } else {
+    tdrawcalls = JSON.parse(drawcalls);
+  }
+
   jcmp.ui.CallEvent('minimap_clear', 'Dennis best dude EUWEST');
 
-  for (let drawcall in drawcalls) {
+  for (let drawcall in tdrawcalls) {
     if(drawcall['type'] == 'addCustomCSS') {
       jcmp.ui.CallEvent('minimap_addCustomCSS', JSON.stringify(drawcall));
     }
