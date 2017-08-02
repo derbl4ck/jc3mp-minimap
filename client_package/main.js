@@ -76,3 +76,15 @@ jcmp.events.AddRemoteCallable('minimap_setVisible', toggle => {
 jcmp.events.AddRemoteCallable('minimap_changeStyle', style => {
   jcmp.ui.CallEvent('minimap_changeStyle', style);
 });
+
+jcmp.events.AddRemoteCallable('minimap_xrefmodhp', hp => {
+    jcmp.ui.CallEvent('minimap_xrefmodhp', hp);
+});
+
+jcmp.events.AddRemoteCallable('minimap_startuseoxygen', () => {
+    jcmp.ui.CallEvent('minimap_startuseoxygen');
+});
+
+jcmp.events.AddRemoteCallable('minimap_stopuseoxygen', () => {
+    jcmp.ui.CallEvent('minimap_stopuseoxygen');
+});
