@@ -73,5 +73,6 @@ jcmp.events.AddRemoteCallable('minimap_removeDrawcall', (pkg, identifier) => {
       jcmp.events.CallRemote('minimap_draw', JSON.stringify(drawcalls));
     }
 });
-
+var xRef_mod = require("./xRef_mod.js");
+xRef_mod.init();
 console.log('[minimap] initialized!');
