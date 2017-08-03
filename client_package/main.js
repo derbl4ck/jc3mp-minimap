@@ -26,12 +26,12 @@ jcmp.ui.AddEvent('minimap_getLocalPlayerRot', () => {
   let y = jcmp.localPlayer.rotation.y;
   //Due to a missing polar coordinate it's not possible to solve it via acos/asin
   rotation = Math.abs(y) * 180 / Math.PI;
-  if (z == 0) {
+  //if (z == 0) {
     if (y < 0) rotation = 90 - rotation + 270;
-  } else {
+  /*} else {
     rotation = (y > 0) ? 90 - rotation + 90 : rotation + 180;
-  }
-  rotation = 360 - rotation;
+  }*
+  rotation = 360 - rotation;*/
   jcmp.ui.CallEvent('minimap_setLocalPlayerRot', rotation);
 });
 
