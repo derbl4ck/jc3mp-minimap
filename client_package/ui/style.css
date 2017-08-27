@@ -37,23 +37,31 @@
         }
 		
 		.pos-upperleft {
-			left: 20px;
-			top: 20px;
+            display: auto;
+			left: 0px;
+			top: 0px;
 		}
 		
 		.pos-upperright {
-			right: 20px;
-			top: 20px;
+            display: auto;
+			right: 0px;
+			top: 0px;
 		}
 		
 		.pos-bottomleft {
-			left: 20px;
-			bottom: 20px;
+            display: auto;
+			left: 0px;
+			bottom: 4px;
 		}
 		
 		.pos-bottomright {
-            right: 20px;
-            bottom: 20px;
+            display: auto;
+            right: 0px;
+            bottom: 4px;
+		}
+        
+        .pos-hidden {
+            display: none;
 		}
         
         #indicators {
@@ -69,24 +77,32 @@
         }
         
         .ipos-upperleft {
-            left: 20px;
-            top: 243.8px;
+            display: auto;
+            left: 0px;
+            top: 223.8px;
         }
         
         .ipos-upperright {
-            right: 20px;
-            top: 243.8px;
+            display: auto;
+            right: 0px;
+            top: 223.8px;
         }
         
         .ipos-bottomleft {
-            left: 20px;
-            bottom: 16px;
+            display: auto;
+            left: 0px;
+            bottom: 0px;
         }
         
         .ipos-bottomright {
-            right: 20px;
-            bottom: 16px;
+            display: auto;
+            right: 0px;
+            bottom: 0px;
         }
+        
+        .ipos-hidden {
+            display: none;
+		}
 		
 		.arrow {
 			background-image: url('images/arrow.png');
