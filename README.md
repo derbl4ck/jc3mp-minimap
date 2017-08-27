@@ -1,7 +1,7 @@
 # jc3mp-minimap
 Features a Server package which gives each Client a Minimap, displayed on his UI.
 
-![Image of the Minimap](https://derbl4ck.github.io/jc3mp-minimap.jpg)
+![Image of the Minimap](https://derbl4ck.github.io/jc3mp-minimap.png)
 
 ## Installation
 
